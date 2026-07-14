@@ -46,6 +46,11 @@ def predict():
         return jsonify({'error': f'예측 중 오류 발생: {str(e)}'}), 500
 
 
+@app.route('/test/add', methods=['GET'])
+def testfunc1():
+    print('테스트: 기능 추가')
+
+
 if __name__ == '__main__':
     print("서버가 시작됩니다... http://localhost:5000")
     print("POST /predict 엔드포인트로 이미지를 전송하세요.")
