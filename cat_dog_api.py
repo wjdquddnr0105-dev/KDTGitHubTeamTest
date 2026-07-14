@@ -28,6 +28,7 @@ def predict():
         return jsonify({
             'error': '이미지 파일이 없습니다. "image" 키로 파일을 전송해주세요.'
         }), 400
+        return jsonify({'error': '이미지 파일이 없습니다. "image" 키로 파일을 전송해주세요.'}), 400
 
     file = request.files['image']
 
@@ -35,6 +36,7 @@ def predict():
         return jsonify({
             'error': '파일이 선택되지 않았습니다.'
         }), 400
+        return jsonify({'error': '파일이 선택되지 않았습니다.'}), 400
 
     try:
         # 이미지 읽기 및 전처리
@@ -48,6 +50,13 @@ def predict():
         # 예측
         result = model.predict(image_array)
 
+        image = image.convert('RGB')  # RGB로 변환 (PNG 등 대응)
+        image = image.resize((150, 150))  # 모델 입력 크기에 맞게 리사이즈
+        image_array = np.array(image)
+        image_array = np.expand_dims(image_array, axis=0)  # 배치 차원 추가
+
+        # 예측
+        result = model.predict(image_array)
         predicted_index = int(result[0][0])
         predicted_class = class_names[predicted_index]
         confidence = float(result[0][0])
@@ -62,6 +71,12 @@ def predict():
         return jsonify({
             'error': f'예측 중 오류 발생: {str(e)}'
         }), 500
+        return jsonify({'error': f'예측 중 오류 발생: {str(e)}'}), 500
+
+
+@app.route('/test/add', methods=['GET'])
+def testfunc1():
+    print('테스트: 기능 추가')
 
 
 if __name__ == '__main__':
@@ -69,4 +84,5 @@ if __name__ == '__main__':
     print("상태 확인: GET http://localhost:5000/health")
     print("이미지 예측: POST http://localhost:5000/predict")
 
+    print("POST /predict 엔드포인트로 이미지를 전송하세요.")
     app.run(debug=True, port=5000)
