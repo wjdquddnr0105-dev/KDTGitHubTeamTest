@@ -11,7 +11,8 @@ model = tf.keras.models.load_model('cats_and_dogs_classifier.h5')
 class_names = ['cats', 'dogs']
 
 
-# 서버 상태 확인 기능
+# 서버 상태 확인 가능 (정병욱)
+
 @app.route('/health', methods=['GET'])
 def health():
     return jsonify({
