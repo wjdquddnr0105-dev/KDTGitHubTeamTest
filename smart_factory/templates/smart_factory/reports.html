@@ -1,0 +1,13 @@
+{% extends "smart_factory/base.html" %}
+{% block title %}분석 리포트 | Smart Factory{% endblock %}
+{% block smart_factory_content %}
+<section class="page-heading"><div><span class="eyebrow">[ 04 / ANALYTICS ]</span><h1>분석 리포트</h1></div><p>DATA RANGE 2026-07-08 — 2026-07-14</p></section>
+<section class="terminal-card report-filters" id="report-filters"><div><button class="is-active">7 DAYS</button><button>30 DAYS</button><button>QUARTER</button></div><label>FROM <input type="date" value="2026-07-08"></label><label>TO <input type="date" value="2026-07-14"></label><button>[ REPORT EXPORT ]</button></section>
+<section class="report-grid">
+<article class="terminal-card span-two" id="trend-report"><header class="panel-title"><h2>[ 생산량 · OEE · 불량률 추이 ]</h2><span>7 DAY TREND</span></header><div class="trend-chart"><div class="chart-y"><span>100</span><span>75</span><span>50</span><span>25</span><span>0</span></div><div class="chart-bars">{% for day, value in [('08',68),('09',78),('10',74),('11',86),('12',81),('13',92),('14',95)] %}<div><i style="height:{{ value }}%"><b>{{ value }}</b></i><span>07/{{ day }}</span></div>{% endfor %}</div></div></article>
+<article class="terminal-card" id="correlation-report"><header class="panel-title"><h2>[ 공정 상관관계 ]</h2><span>PEARSON R</span></header><div class="matrix"><span></span><b>TEMP</b><b>HUMID</b><b>SPEED</b><b>DEFECT</b><b>TEMP</b><i>1.00</i><i>.21</i><i>.34</i><i class="hot">.78</i><b>HUMID</b><i>.21</i><i>1.00</i><i>.08</i><i>.31</i><b>SPEED</b><i>.34</i><i>.08</i><i>1.00</i><i class="warm">.56</i></div></article>
+<article class="terminal-card" id="process-comparison"><header class="panel-title"><h2>[ 공정별 성능 비교 ]</h2><span>OEE</span></header><div class="bar-chart"><div><b>LINE-01</b><i style="width:96%"></i><span>96.1</span></div><div><b>LINE-02</b><i style="width:93%"></i><span>93.4</span></div><div><b>LINE-03</b><i class="amber" style="width:84%"></i><span>84.8</span></div><div><b>LINE-04</b><i style="width:91%"></i><span>91.2</span></div></div></article>
+<article class="terminal-card span-two ai-diagnosis" id="ai-diagnosis"><header class="panel-title"><h2>[ 머신러닝 기반 공정 진단 보고서 ]</h2><span class="badge warning">2 FINDINGS</span></header><div class="diagnosis-grid"><div><b>01 / REFLOW TEMPERATURE</b><p>REFLOW-02 Zone 4 온도가 236°C를 초과할 때 솔더 브리지 발생 확률이 <strong>2.4배</strong> 증가합니다.</p><small>RECOMMENDATION · 설정 온도 3°C 하향 및 센서 교정</small></div><div><b>02 / LINE-03 CYCLE TIME</b><p>최근 3일간 LINE-03의 Cycle Time 변동 폭이 기준 대비 <strong>18.6%</strong> 증가했습니다.</p><small>RECOMMENDATION · SMT 노즐 #12 예방 점검</small></div></div></article>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/smart_factory_reports.js') }}"></script>{% endblock %}

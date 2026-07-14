@@ -11,10 +11,13 @@ AI Iris와 분리된 독립 실행형 Smart Factory 대시보드 데모입니다
 - 금일 생산 목표
 - 품질 요약
 - 주요 이상 알림 및 최근 이벤트
+- 품질 관리 화면
+- 설비 및 자원 관리 화면
+- 분석 리포트 화면
 - Smart Factory AI Assistant UI
 - 반응형 화면 구성
 
-현재 버전의 대시보드 데이터는 화면 확인을 위한 고정 데모 데이터입니다.
+현재 버전의 모든 화면 데이터는 화면 확인을 위한 고정 데모 데이터입니다.
 
 ## 사용된 언어 및 기술
 
@@ -73,24 +76,39 @@ smart_factory/
 ├─ templates/
 │  └─ smart_factory/
 │     ├─ base.html
-│     └─ dashboard.html
+│     ├─ dashboard.html
+│     ├─ quality.html
+│     ├─ equipment.html
+│     └─ reports.html
 ├─ static/
 │  ├─ css/
 │  │  └─ smart_factory.css
 │  └─ js/
-│     └─ smart_factory.js
+│     ├─ smart_factory.js
+│     ├─ smart_factory_quality.js
+│     ├─ smart_factory_equipment.js
+│     └─ smart_factory_reports.js
 └─ tests/
    └─ test_app.py
 ```
 
 ## 동작 로직
 
-1. 사용자가 `/smart-factory/dashboard`에 접속합니다.
-2. Flask가 `dashboard.html`을 렌더링합니다.
-3. `base.html`이 공통 레이아웃과 Assistant UI를 제공합니다.
-4. `smart_factory.css`가 대시보드의 화면 스타일을 구성합니다.
-5. `smart_factory.js`가 Assistant 열기/닫기 및 탭 전환을 처리합니다.
-6. 대시보드의 KPI와 이벤트 정보는 현재 화면 표시용 고정 데모 데이터입니다.
+1. 사용자가 Smart Factory 페이지 중 하나에 접속합니다.
+2. Flask가 해당 HTML 템플릿을 렌더링합니다.
+3. `base.html`이 공통 레이아웃, 네비게이션, Assistant UI를 제공합니다.
+4. `smart_factory.css`가 공통 화면 스타일을 구성합니다.
+5. 페이지별 JavaScript가 선택, 탭, 필터, 임계값 입력 등 화면 동작을 처리합니다.
+6. 화면 데이터는 현재 화면 표시용 고정 데모 데이터입니다.
+
+## 제공 페이지
+
+| 페이지 | URL | 프로토타입 동작 |
+| --- | --- | --- |
+| Dashboard | `/smart-factory/dashboard` | KPI, 운영 현황, 목표, 품질 요약, 이벤트 표시 |
+| Quality | `/smart-factory/quality` | 생산 라인 및 AGV 선택에 따른 상세 상태 표시 |
+| Equipment | `/smart-factory/equipment` | 설비 상태와 센서 정보 표시, 임계값 설정 버튼 UI |
+| Reports | `/smart-factory/reports` | 기간 선택, 추이 차트, 공정 비교, 리포트 내보내기 UI |
 
 ## AI Iris와의 분리
 

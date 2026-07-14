@@ -1,0 +1,17 @@
+{% extends "smart_factory/base.html" %}
+{% block title %}설비 및 자원 관제 | Smart Factory{% endblock %}
+{% block smart_factory_content %}
+<section class="page-heading"><div><span class="eyebrow">[ 03 / EQUIPMENT & RESOURCE ]</span><h1>설비 및 자원 관제</h1></div><p>CONNECTED 28 / 28 · SENSOR SYNC NORMAL</p></section>
+<section class="equipment-grid" id="equipment-grid">
+{% for code, name, state, load in [('SMT-01','칩 마운터','RUNNING','91'),('REFLOW-02','리플로우 오븐','RUNNING','86'),('AOI-03','광학 검사기','WARNING','72'),('PRESS-01','PCB 프레스','IDLE','08'),('ROUTER-02','라우팅 머신','RUNNING','78'),('PACK-01','포장 설비','MAINT.','00')] %}
+<article class="terminal-card equipment-unit {{ 'unit-warning' if state == 'WARNING' else '' }}"><header><b>{{ code }}</b><span>{{ state }}</span></header><h2>{{ name }}</h2><div class="machine-gauge"><i style="width:{{ load }}%"></i></div><footer><span>LOAD {{ load }}%</span><span>{{ '점검 필요' if state in ['WARNING','MAINT.'] else '정상 운전' }}</span></footer></article>
+{% endfor %}
+</section>
+<section class="resource-layout">
+<article class="terminal-card" id="sensor-grid"><header class="panel-title"><h2>[ 환경 센서 현황 ]</h2><span class="badge normal">28 ONLINE</span></header><div class="sensor-grid"><div><span>LINE-01 온도</span><strong>23.8°C</strong><small>NORMAL</small></div><div><span>REFLOW-02</span><strong>238°C</strong><small class="text-amber">HIGH</small></div><div><span>클린룸 습도</span><strong>46.2%</strong><small>NORMAL</small></div><div><span>SMT-01 진동</span><strong>1.24 mm/s</strong><small>NORMAL</small></div></div></article>
+<article class="terminal-card" id="resource-summary"><header class="panel-title"><h2>[ 자원 재고 ]</h2><span>ERP SYNC 13:23</span></header><div class="bar-chart"><div><b>PCB</b><i style="width:82%"></i><span>82%</span></div><div><b>SOLDER</b><i class="amber" style="width:38%"></i><span>38%</span></div><div><b>CHIP</b><i style="width:67%"></i><span>67%</span></div><div><b>TRAY</b><i class="red" style="width:21%"></i><span>21%</span></div></div></article>
+<article class="terminal-card" id="agv-resource-list"><header class="panel-title"><h2>[ AGV 자원 현황 ]</h2><span>6 RUNNING</span></header><dl class="compact-list"><div><dt>AGV-01 · MOVING</dt><dd>84%</dd></div><div><dt>AGV-02 · DELIVERY</dt><dd>71%</dd></div><div><dt>AGV-03 · PICKUP</dt><dd>61%</dd></div><div><dt>AGV-07 · CHARGING</dt><dd>28%</dd></div></dl></article>
+</section>
+<section class="terminal-card threshold-settings" id="threshold-settings"><header class="panel-title"><h2>[ 관리자 알람 임계치 설정 ]</h2><span>LOCAL UI PREVIEW</span></header><div class="threshold-grid"><label>공정 온도 상한<input type="number" value="240"><span>°C</span></label><label>설비 진동 상한<input type="number" value="3.5" step="0.1"><span>mm/s</span></label><label>AGV 배터리 경고<input type="number" value="25"><span>%</span></label><label>연속 불량 경고<input type="number" value="3"><span>EA</span></label><button type="button">[ 설정 적용 ]</button></div></section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/smart_factory_equipment.js') }}"></script>{% endblock %}

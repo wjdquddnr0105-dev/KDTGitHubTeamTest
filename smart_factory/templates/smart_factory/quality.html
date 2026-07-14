@@ -1,0 +1,36 @@
+{% extends "smart_factory/base.html" %}
+{% block title %}품질 관리 | Smart Factory{% endblock %}
+{% block smart_factory_content %}
+<section class="page-heading"><div><span class="eyebrow">[ 02 / QUALITY CONTROL ]</span><h1>품질 관리</h1></div><p>AI INSPECTION ENGINE · ACCURACY 98.72%</p></section>
+<section class="quality-layout">
+    <article class="terminal-card factory-map" id="production-line-map">
+        <header class="panel-title"><h2>[ 생산라인 및 AGV 실시간 관제 ]</h2><span class="badge normal">LIVE</span></header>
+        <div class="map-stage" id="agv-live-map">
+            <div class="warehouse-node"><b>W-01</b><small>원자재</small></div>
+            <div class="line-stack">
+                <button class="quality-line is-selected" data-quality-asset="LINE-01" data-status="RUNNING / LOT PCB-240714-A / 검사 정상"><b>LINE-01</b><span>SMT → REFLOW → AOI</span><i style="width:82%"></i><small>82% · PCB-240714-A</small></button>
+                <button class="quality-line" data-quality-asset="LINE-02" data-status="RUNNING / LOT PCB-240714-B / 불량률 관찰"><b>LINE-02</b><span>SMT → REFLOW → AOI</span><i style="width:64%"></i><small>64% · PCB-240714-B</small></button>
+                <button class="quality-line line-warning" data-quality-asset="LINE-03" data-status="QUALITY HOLD / LOT PCB-240714-C / 연속 불량 3건"><b>LINE-03</b><span>SMT → REFLOW → AOI</span><i style="width:47%"></i><small>47% · QUALITY HOLD</small></button>
+                <button class="quality-line" data-quality-asset="LINE-04" data-status="IDLE / 다음 작업 14:00 / 검사 대기"><b>LINE-04</b><span>SMT → REFLOW → AOI</span><i style="width:12%"></i><small>IDLE · NEXT 14:00</small></button>
+            </div>
+            <div class="agv-track" aria-label="AGV 이동 경로"><span class="track-line"></span>
+                <button class="quality-agv agv-one" data-quality-asset="AGV-01" data-status="MOVING / LINE-01 → W-02 / BATTERY 84%">AGV-01</button>
+                <button class="quality-agv agv-two" data-quality-asset="AGV-03" data-status="PICKUP / LINE-03 / BATTERY 61%">AGV-03</button>
+            </div>
+            <div class="warehouse-node finished"><b>W-02</b><small>완제품</small></div>
+        </div>
+    </article>
+    <aside class="terminal-card asset-detail">
+        <header class="panel-title"><h2>[ 선택 객체 상세 ]</h2></header>
+        <strong id="quality-asset-name">LINE-01</strong>
+        <p id="quality-asset-status">RUNNING / LOT PCB-240714-A / 검사 정상</p>
+        <dl class="compact-list"><div><dt>CT</dt><dd>42.8 SEC</dd></div><div><dt>PASS</dt><dd>3,204 EA</dd></div><div><dt>DEFECT</dt><dd class="text-red">31 EA</dd></div><div><dt>YIELD</dt><dd>99.04%</dd></div></dl>
+    </aside>
+</section>
+<section class="quality-panels">
+    <article class="terminal-card"><header class="panel-title"><h2>[ AI 비전 실시간 검사 ]</h2><span>CAM-AOI-03</span></header><div class="vision-feed"><div class="pcb-board"><span class="scan-line"></span><i class="defect-point p1"></i><i class="defect-point p2"></i></div><p><b class="text-red">NG · SOLDER BRIDGE</b><br>CONFIDENCE 98.72%<br>POSITION X:124 Y:086</p></div></article>
+    <article class="terminal-card"><header class="panel-title"><h2>[ 공정별 불량률 ]</h2><span>TODAY</span></header><div class="bar-chart"><div><b>SMT</b><i style="width:32%"></i><span>0.42%</span></div><div><b>REFLOW</b><i class="amber" style="width:68%"></i><span>1.18%</span></div><div><b>AOI</b><i class="red" style="width:82%"></i><span>1.42%</span></div><div><b>PACK</b><i style="width:18%"></i><span>0.21%</span></div></div></article>
+    <article class="terminal-card"><header class="panel-title"><h2>[ 불량 위치 히트맵 ]</h2><span>LAST 500 PCB</span></header><div class="heatmap" aria-label="PCB 불량 위치 히트맵">{% for i in range(48) %}<i class="heat-{{ (i * 7) % 5 }}"></i>{% endfor %}</div></article>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/smart_factory_quality.js') }}"></script>{% endblock %}
