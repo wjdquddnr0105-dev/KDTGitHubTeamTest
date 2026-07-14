@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Smart Factory Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/smart_factory.css') }}">
+</head>
+<body>
+    <header class="system-header">
+        <div class="system-brand">
+            <span class="eyebrow">[ CONTROL TERMINAL / SEOUL-01 ]</span>
+            <strong>PCB SMART FACTORY CONTROL SYSTEM</strong>
+        </div>
+        <div class="system-meta"><span class="status-dot"></span> SYSTEM NORMAL <span>DEMO_MODE</span></div>
+        <nav id="smart-factory-nav" aria-label="Smart Factory navigation">
+            <a class="is-active" href="{{ url_for('smart_factory_dashboard') }}">DASHBOARD</a>
+        </nav>
+    </header>
+    <main class="page-shell">{% block smart_factory_content %}{% endblock %}</main>
+    <button class="assistant-toggle" id="smart-assistant-toggle" type="button" aria-controls="smart-assistant-drawer" aria-expanded="false">
+        <span class="assistant-icon">AI</span><span>ASSISTANT</span><i></i>
+    </button>
+    <aside class="assistant-drawer" id="smart-assistant-drawer" aria-hidden="true" aria-label="Smart Factory assistant">
+        <header class="assistant-header"><div><span class="eyebrow">[ SMART FACTORY AI ]</span><h2>CONTROL ASSISTANT</h2></div><button id="smart-assistant-close" type="button" aria-label="Close assistant">×</button></header>
+        <div class="assistant-tabs" role="tablist"><button class="is-active" type="button" data-assistant-tab="chat" role="tab" aria-selected="true">CHAT</button><button type="button" data-assistant-tab="events" role="tab" aria-selected="false">EVENTS <b>3</b></button></div>
+        <section class="assistant-panel is-active" data-assistant-panel="chat">
+            <div class="chat-log" id="assistant-chat-log"><div class="chat-message ai"><small>AI · 13:24</small><p>안녕하세요. 공정 현황, 품질 이상, 설비 상태를 질문해 주세요.</p></div><div class="chat-message user"><small>DEMO · 13:24</small><p>현재 공장 상태는?</p></div><div class="chat-message ai"><small>AI · 13:24</small><p><strong>시스템 정상 상태입니다.</strong> 대시보드의 주요 지표를 확인해 주세요.</p></div></div>
+            <div class="quick-prompts"><button type="button">오늘 OEE 요약</button><button type="button">공장 설비 확인</button><button type="button">불량 원인 분석</button></div>
+            <form class="assistant-input"><label for="assistant-message">COMMAND INPUT</label><div><input id="assistant-message" placeholder="질문을 입력하세요..." autocomplete="off"><button type="submit">SEND</button></div></form>
+        </section>
+        <section class="assistant-panel" data-assistant-panel="events" hidden>
+            <div class="drawer-event critical"><header><span>CRITICAL</span><time>13:22:41</time></header><b>LINE-03 AOI</b><p>연속 불량 3건 감지</p></div>
+            <div class="drawer-event warning"><header><span>WARNING</span><time>13:18:09</time></header><b>REFLOW-02</b><p>Zone 4 온도 상승 추세</p></div>
+            <div class="drawer-event info"><header><span>INFO</span><time>13:06:22</time></header><b>AGV-04</b><p>자재 이송 완료</p></div>
+        </section>
+    </aside>
+    <script src="{{ url_for('static', filename='js/smart_factory.js') }}"></script>
+</body>
+</html>

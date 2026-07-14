@@ -1,0 +1,21 @@
+{% extends "smart_factory/base.html" %}
+{% block title %}Dashboard | Smart Factory{% endblock %}
+{% block smart_factory_content %}
+<section class="page-heading">
+    <div><span class="eyebrow">[ 01 / OVERVIEW ]</span><h1>Dashboard</h1></div>
+    <p>LAST UPDATE 2026-07-14 13:24:08 · AUTO REFRESH 5SEC</p>
+</section>
+<section class="kpi-grid" id="dashboard-kpis" aria-label="핵심 성과 지표">
+    <article class="terminal-card kpi-card accent-cyan"><span>종합 가동률 / OEE</span><strong>94.2<small>%</small></strong><em>+1.8% TODAY</em></article>
+    <article class="terminal-card kpi-card accent-green"><span>금일 생산량</span><strong>12,840<small> EA</small></strong><em>PLAN 13,500</em></article>
+    <article class="terminal-card kpi-card accent-amber"><span>공정 불량률</span><strong>1.24<small>%</small></strong><em>-0.16% TODAY</em></article>
+    <article class="terminal-card kpi-card accent-violet"><span>가동 설비</span><strong>18<small> / 20</small></strong><em>2 MAINTENANCE</em></article>
+    <article class="terminal-card kpi-card accent-cyan"><span>운행 AGV</span><strong>6<small> / 8</small></strong><em>2 CHARGING</em></article>
+</section>
+<section class="dashboard-grid" id="dashboard-status-summary">
+    <article class="terminal-card span-two"><header class="panel-title"><h2>[ 공장 운영 현황 ]</h2><span class="badge normal">LIVE</span></header><div class="status-rows"><div><b>생산</b><span class="meter"><i style="width: 92%"></i></span><strong>92%</strong><small>정상</small></div><div><b>품질</b><span class="meter"><i style="width: 86%"></i></span><strong>86%</strong><small class="warning">관찰</small></div><div><b>설비</b><span class="meter"><i style="width: 90%"></i></span><strong>90%</strong><small>정상</small></div><div><b>물류</b><span class="meter"><i style="width: 75%"></i></span><strong>75%</strong><small>정상</small></div></div></article>
+    <article class="terminal-card"><header class="panel-title"><h2>[ 금일 목표 ]</h2><span>95.1%</span></header><div class="radial-stat"><strong>12,840</strong><span>/ 13,500 EA</span></div><p class="muted">현재 속도 기준 17:42 완료 예정</p></article>
+    <article class="terminal-card"><header class="panel-title"><h2>[ 품질 요약 ]</h2><span class="badge warning">CHECK</span></header><dl class="compact-list"><div><dt>PASS</dt><dd>12,681</dd></div><div><dt>DEFECT</dt><dd class="text-red">159</dd></div><div><dt>TOP ISSUE</dt><dd>솔더 브리지</dd></div></dl></article>
+</section>
+<section class="terminal-card" id="dashboard-events"><header class="panel-title"><h2>[ 주요 이상 알림 및 최근 이벤트 ]</h2><span class="badge normal">3 EVENTS</span></header><div class="event-table"><div class="event-row critical"><time>13:22:41</time><span>CRITICAL</span><b>LINE-03 AOI</b><p>연속 불량 3건 감지 · 확인 필요</p></div><div class="event-row warning"><time>13:18:09</time><span>WARNING</span><b>REFLOW-02</b><p>Zone 4 온도 상승 추세 (238°C)</p></div><div class="event-row info"><time>13:06:22</time><span>INFO</span><b>AGV-04</b><p>자재 이송 완료 · W-02 → LINE-01</p></div></div></section>
+{% endblock %}
